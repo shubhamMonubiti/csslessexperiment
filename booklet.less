@@ -1,0 +1,109 @@
+:root{
+    --border-radius: 5px;
+  }
+  
+  body {
+    transform-style: preserve-3d;
+    transform: perspective(2000px);
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 40px;
+    color: gray;
+    text-align: center;
+  }
+  
+
+  
+  @book-width: 600px;
+  @book-height: 400px;
+  @bg-offset-y: 65%;
+  
+  .book {
+    position: relative;
+    width: @book-width;
+    height: @book-height;
+    box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.5);
+    margin: 0px auto;
+  }
+  
+  .page {
+    position: absolute;
+    height: inherit;
+    width: @book-width/2;
+    top: 0px;
+  
+    background-size: @book-width auto;
+    transition: 1s ease-in-out;
+  
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: inherit;
+      background-image: inherit;
+      top: 0px;
+  
+      -webkit-transform-origin: 0% 0%;
+      -moz-transform-origin: 0% 0%;
+      -webkit-transition: 1s ease-in-out;
+      -moz-transition: 1s ease-in-out;
+  
+      background-size: @book-width auto;
+  
+      backface-visibility: hidden;
+      box-shadow: inset 0px 0px 0px @book-width/2 rgba(0, 0, 0, 0);
+    }
+  }
+  
+  .page.p1 {
+    left: 0px;
+    background-image: url("https://buffer.com/library/content/images/size/w1200/2023/10/free-images.jpg");
+    background-position: 0% @bg-offset-y;
+    
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+  
+    &:after {
+      left: @book-width/2;
+      transform-origin: 0% 0%;
+      z-index: 2;
+      background-position: 100% @bg-offset-y;
+      border-top-right-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+    }
+  }
+  
+  .page.p2 {
+    right: 0px;
+    background-image: url("https://castfromclay.co.uk/wp-content/uploads/image-asset-1-1024x683.jpeg");
+    background-position: 100% @bg-offset-y;
+  
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  
+    &:after {
+      left: -@book-width/2;
+      transform-origin: 100% 0%;
+      transform: rotateY(180deg);
+      z-index: 1;
+      background-position: 0% @bg-offset-y;
+      box-shadow: inset 0px 0px 0px @book-width/2 rgba(0, 0, 0, 0.4);
+      border-top-left-radius: var(--border-radius);
+      border-bottom-left-radius: var(--border-radius);
+    }
+  }
+  
+  .book:hover {
+    .page.p1:after {
+      transform: rotateY(-180deg);
+      box-shadow: inset 0px 0px 0px @book-width/2 rgba(0, 0, 0, 0.4);
+    }
+  
+    .page.p2:after {
+      transform: rotateY(0deg);
+      box-shadow: inset 0px 0px 0px @book-width/2 rgba(0, 0, 0, 0);
+    }
+  }
+  
